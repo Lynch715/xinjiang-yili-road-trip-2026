@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026暑假新疆伊犁环线自驾方案对比</title>
+<style>
+  :root{
+    --bg:#f4f7f3;
+    --card:#ffffff;
+    --green:#1f6b4f;
+    --green-2:#2f8a67;
+    --blue:#2368a2;
+    --orange:#e98522;
+    --text:#20312a;
+    --muted:#6d7b74;
+    --line:#dfe8e2;
+    --shadow:0 10px 28px rgba(28,71,53,.10);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(70,150,110,.10), transparent 30%),
+      linear-gradient(180deg,#f8fbf8 0%,#eef4ef 100%);
+    color:var(--text);
+    line-height:1.65;
+  }
+  .hero{
+    padding:48px 20px 28px;
+    text-align:center;
+    background:
+      linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.90)),
+      url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80') center/cover;
+    border-bottom:1px solid var(--line);
+  }
+  .hero h1{
+    margin:0;
+    font-size:clamp(30px,5vw,54px);
+    color:#164f3b;
+    letter-spacing:1px;
+  }
+  .hero p{
+    margin:10px 0 0;
+    color:#4c6257;
+    font-size:16px;
+  }
+  .container{max-width:1240px;margin:0 auto;padding:28px 18px 56px}
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    padding:12px;
+    background:rgba(244,247,243,.92);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .tab-btn{
+    border:0;
+    padding:11px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    background:#e6eee9;
+    color:#315446;
+    font-weight:700;
+  }
+  .tab-btn.active{
+    background:var(--green);
+    color:#fff;
+  }
+  .panel{display:none}
+  .panel.active{display:block}
+  .summary-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .summary{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:var(--shadow);
+  }
+  .summary .label{color:var(--muted);font-size:13px}
+  .summary .value{font-size:25px;font-weight:800;margin-top:4px;color:var(--green)}
+  .notice{
+    background:#fff7ea;
+    border:1px solid #f5d5a3;
+    color:#7a4a11;
+    padding:14px 16px;
+    border-radius:14px;
+    margin:0 0 22px;
+  }
+  .day-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+  .day-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:var(--shadow);
+  }
+  .day-head{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    align-items:flex-start;
+    margin-bottom:10px;
+  }
+  .day-title{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  .badge{
+    min-width:46px;
+    text-align:center;
+    padding:6px 10px;
+    border-radius:10px;
+    font-weight:800;
+    color:#fff;
+    background:var(--green);
+  }
+  .route-title{font-size:20px;font-weight:800}
+  .km{
+    color:var(--orange);
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .meta{
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:7px 12px;
+    margin-top:10px;
+  }
+  .meta .k{
+    color:var(--muted);
+    font-weight:700;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .tag{
+    background:#edf5f0;
+    color:#2d624d;
+    border:1px solid #d7e8dd;
+    border-radius:999px;
+    padding:5px 10px;
+    font-size:13px;
+  }
+  .compare{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:15px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+  th{background:#eff5f1;color:#264f3e}
+  tr:last-child td{border-bottom:0}
+  .good{color:#18734d;font-weight:700}
+  .warn{color:#b56a13;font-weight:700}
+  .print-note{
+    margin-top:22px;
+    color:var(--muted);
+    font-size:13px;
+    text-align:center;
+  }
+  @media(max-width:900px){
+    .summary-grid{grid-template-columns:repeat(2,1fr)}
+    .day-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:620px){
+    .summary-grid{grid-template-columns:1fr}
+    .tabs{justify-content:flex-start;overflow:auto}
+    .meta{grid-template-columns:76px 1fr}
+    th,td{padding:11px 10px;font-size:14px}
+  }
+  @media print{
+    .tabs{display:none}
+    body{background:#fff}
+    .panel{display:block!important}
+    .panel + .panel{page-break-before:always}
+    .day-card,.summary,.compare{box-shadow:none}
+    .hero{background:#fff}
+  }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <h1>2026暑假新疆伊犁环线自驾方案</h1>
+    <p>原始路书版 × 优化行程版｜6天行程对比阅读</p>
+  </section>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="original">原始路书版</button>
+    <button class="tab-btn" data-tab="optimized">优化行程版</button>
+    <button class="tab-btn" data-tab="compare">两版对比</button>
+  </div>
+
+  <main class="container">
+    <section id="original" class="panel active">
+      <div class="summary-grid">
+        <div class="summary"><div class="label">行程天数</div><div class="value">6天</div></div>
+        <div class="summary"><div class="label">总里程</div><div class="value">约1808KM</div></div>
+        <div class="summary"><div class="label">核心景观</div><div class="value">S101 + 孟克特</div></div>
+        <div class="summary"><div class="label">路线特点</div><div class="value">原始规划</div></div>
+      </div>
+      <div class="notice">这一版完全按照当前高德路书整理，保留第1天直接赶到乔尔玛、第5天住奎屯的安排。</div>
+      <div class="day-grid">
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D1</span><div class="route-title">乌鲁木齐 → 乔尔玛</div></div><div class="km">494KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>乌鲁木齐市 → 大丰镇政府 → S101百里丹霞观景台 → 肯斯瓦特水库 → 安集海桥 → 乌沙安集海大峡谷 → 乌苏驿旅游多功能综合服务中心（建设中） → 独库公路周周咖游观景台 → 独库公路 → 乔尔玛</div>
+            <div class="k">住宿</div><div>乔尔玛</div>
+          </div>
+          <div class="tags"><span class="tag">S101</span><span class="tag">百里丹霞</span><span class="tag">肯斯瓦特</span><span class="tag">安集海大峡谷</span><span class="tag">独库公路</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D2</span><div class="route-title">乔尔玛 → 尼勒克县</div></div><div class="km">188KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>乔尔玛 → 百里画廊 → 孟克特古道-观景台 → 尼勒克县</div>
+            <div class="k">住宿</div><div>尼勒克县</div>
+          </div>
+          <div class="tags"><span class="tag">唐布拉百里画廊</span><span class="tag">孟克特古道</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D3</span><div class="route-title">尼勒克县 → 伊宁市</div></div><div class="km">335KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>尼勒克县 → 特克斯八卦城 → 昭苏县 → 昭苏牧云山庄 → 伊昭公路一壶春色农家院 → 达娜农家乐 → 安各列特达坂 → 伊昭公路 → 伊宁市</div>
+            <div class="k">住宿</div><div>伊宁市</div>
+          </div>
+          <div class="tags"><span class="tag">八卦城</span><span class="tag">昭苏</span><span class="tag">伊昭公路</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D4</span><div class="route-title">伊宁市 → 赛里木湖</div></div><div class="km">219KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>伊宁市 → 霍尔果斯口岸新国门 → 赛里木湖国家级风景名胜区</div>
+            <div class="k">住宿</div><div>赛里木湖</div>
+          </div>
+          <div class="tags"><span class="tag">霍尔果斯</span><span class="tag">赛里木湖</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D5</span><div class="route-title">赛里木湖 → 奎屯市</div></div><div class="km">333KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>赛里木湖 → 奎屯市</div>
+            <div class="k">住宿</div><div>奎屯市</div>
+          </div>
+          <div class="tags"><span class="tag">湖景返程</span><span class="tag">高速轻松日</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D6</span><div class="route-title">奎屯市 → 乌鲁木齐站</div></div><div class="km">239KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>奎屯市 → 乌鲁木齐站</div>
+            <div class="k">住宿</div><div>乌鲁木齐站</div>
+          </div>
+          <div class="tags"><span class="tag">返程日</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="optimized" class="panel">
+      <div class="summary-grid">
+        <div class="summary"><div class="label">行程天数</div><div class="value">6天</div></div>
+        <div class="summary"><div class="label">总里程</div><div class="value">约1915KM</div></div>
+        <div class="summary"><div class="label">核心景观</div><div class="value">S101 + 孟克特</div></div>
+        <div class="summary"><div class="label">路线特点</div><div class="value">节奏优化</div></div>
+      </div>
+      <div class="notice">这一版把第1天拆到独山子，给S101留出游玩时间；第2天进入独库北段并住唐布拉，第3天专门深度游孟克特。</div>
+      <div class="day-grid">
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D1</span><div class="route-title">乌鲁木齐 → 独山子</div></div><div class="km">约380KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>乌鲁木齐 → 大丰镇 → S101百里丹霞观景台 → 肯斯瓦特水库 → 安集海大峡谷 → 乌苏驿 → 独山子</div>
+            <div class="k">住宿</div><div>独山子</div>
+          </div>
+          <div class="tags"><span class="tag">S101</span><span class="tag">百里丹霞</span><span class="tag">肯斯瓦特</span><span class="tag">安集海大峡谷</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D2</span><div class="route-title">独山子 → 唐布拉</div></div><div class="km">约260KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>独山子 → 乌苏驿 → 独库公路北段 → 哈希勒根达坂 → 乔尔玛 → 唐布拉百里画廊</div>
+            <div class="k">住宿</div><div>唐布拉 / 孟克特入口</div>
+          </div>
+          <div class="tags"><span class="tag">独库公路北段</span><span class="tag">乔尔玛</span><span class="tag">唐布拉</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D3</span><div class="route-title">唐布拉 → 尼勒克县</div></div><div class="km">约150KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>唐布拉 → 孟克特古道景区深度游 → 尼勒克县</div>
+            <div class="k">住宿</div><div>尼勒克县</div>
+          </div>
+          <div class="tags"><span class="tag">孟克特古道</span><span class="tag">雪山河谷</span><span class="tag">草原</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D4</span><div class="route-title">尼勒克县 → 伊宁市</div></div><div class="km">约335KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>尼勒克县 → 特克斯八卦城 → 昭苏 → 伊昭公路 → 伊宁市</div>
+            <div class="k">住宿</div><div>伊宁市</div>
+          </div>
+          <div class="tags"><span class="tag">八卦城</span><span class="tag">昭苏</span><span class="tag">伊昭公路</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D5</span><div class="route-title">伊宁市 → 赛里木湖</div></div><div class="km">约220KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>伊宁市 → 霍尔果斯口岸新国门 → 赛里木湖环湖</div>
+            <div class="k">住宿</div><div>赛里木湖</div>
+          </div>
+          <div class="tags"><span class="tag">霍尔果斯</span><span class="tag">赛里木湖</span></div>
+        </article>
+
+        <article class="day-card">
+          <div class="day-head"><div class="day-title"><span class="badge">D6</span><div class="route-title">赛里木湖 → 乌鲁木齐</div></div><div class="km">约570KM</div></div>
+          <div class="meta">
+            <div class="k">路线</div><div>赛里木湖 → 精河 / 奎屯 → 乌鲁木齐</div>
+            <div class="k">住宿</div><div>乌鲁木齐</div>
+          </div>
+          <div class="tags"><span class="tag">返程日</span><span class="tag">高速返乌</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="compare" class="panel">
+      <div class="compare">
+        <table>
+          <thead>
+            <tr><th>对比项</th><th>原始路书版</th><th>优化行程版</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>第1天</td><td class="warn">乌鲁木齐直达乔尔玛，494KM，强度较大</td><td class="good">乌鲁木齐到独山子，给S101留出更完整游玩时间</td></tr>
+            <tr><td>独库北段</td><td>第1天后半段进入，时间压力较大</td><td>第2天单独安排，更从容</td></tr>
+            <tr><td>唐布拉</td><td>作为D2途经点</td><td class="good">安排住宿，更适合慢游百里画廊</td></tr>
+            <tr><td>孟克特</td><td>与唐布拉、尼勒克同日完成</td><td class="good">D3专门深度游，体验更完整</td></tr>
+            <tr><td>返程</td><td class="good">赛里木湖—奎屯—乌鲁木齐，分两天更轻松</td><td class="warn">赛里木湖直返乌鲁木齐，约570KM，返程日较长</td></tr>
+            <tr><td>适合人群</td><td>更重视轻松返程、不介意前段赶路</td><td>更重视S101、独库、唐布拉和孟克特的游玩质量</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="print-note">建议优先采用优化行程版；若担心最后一天返程太累，可将优化版延长为7天，在奎屯增加一晚。</p>
+    </section>
+  </main>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  buttons.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:document.querySelector('.tabs').offsetTop,behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
